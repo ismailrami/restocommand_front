@@ -1,0 +1,108 @@
+ <div id="wrapper" ng-init="init()">
+        <div ng-include="'partials/navBar.html'"></div>
+        
+         <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedUser =true]"></div>
+       
+        <div id="page-wrapper" >
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                        {{translation.page_header_add_worker}}
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3> {{translation.panel_heading_update_worker}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-lg-2">
+                            
+                    </div>
+                        <div class="col-lg-8" >
+                            <form ng-submit="updateWorker()" name="updateWorkerForm" novalidate>
+                                  <div class="row form-group" ng-class="{'has-error':((updateWorkerForm.last_name.$error.minlength && submitted)||(updateWorkerForm.last_name.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                    <div  class="col-lg-10">
+                                        <input class="form-control" name='last_name' ng-minlength="3" ng-model="work.last_name" required>
+                                            <label class="control-label" ng-show="(updateWorkerForm.last_name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                            <label class="control-label" ng-show="(updateWorkerForm.last_name.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group"  ng-class="{'has-error':((updateWorkerForm.first_name.$error.minlength && submitted)||(updateWorkerForm.first_name.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_last_name}}</label></div>
+                                    <div  class="col-lg-10"><input name='first_name' ng-minlength="3" class="form-control" ng-model="work.first_name" required>
+                                        <label class="control-label" ng-show="(updateWorkerForm.first_name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                        <label class="control-label" ng-show="(updateWorkerForm.first_name.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                               
+                                <div class="row form-group" ng-class="{'has-error':((updateWorkerForm.login.$error.minlength && submitted)||(updateWorkerForm.login.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>Login</label></div>
+                                    <div  class="col-lg-10"><input name='login' ng-minlength="3" class="form-control" ng-model="work.login" required>
+                                        <label class="control-label" ng-show="(updateWorkerForm.login.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                        <label class="control-label" ng-show="(updateWorkerForm.login.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group" ng-class="{'has-error':((updateWorkerForm.mdp.$error.minlength && submitted)||(updateWorkerForm.mdp.$error.required && submitted)||(updateWorkerForm.cmdp.$error.match  && submitted ))}">
+                                    <div class="col-lg-2"><label>{{translation.label_pwd}}</label></div>
+                                    <div class="col-lg-10">
+                                        <input type="password" name="mdp" ng-minlength="8" class="form-control" ng-model="work.password" required>
+                                        <label class="control-label" ng-show="(updateWorkerForm.mdp.$error.minlength && submitted)">{{translation.err_min_8}}</label>
+                                        <label class="control-label" ng-show="(updateWorkerForm.mdp.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group" ng-class="{'has-error':((updateWorkerForm.cmdp.$error.minlength && submitted)||(updateWorkerForm.cmdp.$error.required && submitted)||(updateWorkerForm.cmdp.$error.match && submitted) )}">            
+                                    <div class="col-lg-2"><label>{{translation.label_cpwd}}</label></div>
+                                    <div class="col-lg-10">
+                                        <input name="cmdp" ng-minlength="8" type="password" class="form-control" ng-model="work.cpassword" ng-match="worke.password" required>
+                                        <label class="control-label" ng-show="(updateWorkerForm.cmdp.$error.match&& submitted)">{{translation.err_identique}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-lg-2"><label>{{translation.label_role}}</label></div>
+                                        <div class="row form-group">
+                                        
+                                        <div class="col-lg-3">
+                                            <label><input type="checkbox" checklist-model="work.roles" checklist-value="3">{{translation.label_cocker}}</label>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <label><input type="checkbox" checklist-model="work.roles" checklist-value="4">{{translation.label_waiter}}</label>
+                                        </div>
+                                        
+                                        <div class="col-lg-3">
+                                            <label><input type="checkbox" checklist-model="work.roles" checklist-value="5">{{translation.label_casher}}</label>
+                                        </div>
+                                        
+                                    
+                                </div> 
+                                    
+                                </div>
+                                
+                                <div class="row form-group">
+                                    <button type="submit"  class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                                </div>              
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+</div>
+</div>
+
+
+
+                                            
+                                            
+        </div>
+</div>
+</div>

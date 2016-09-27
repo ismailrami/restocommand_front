@@ -1,0 +1,80 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'partials/navBar.html'"></div>    
+    <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedOption =true] [selected=true]"></div>   
+    <div id="page-wrapper" >
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">{{translation.page_header_add_option}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                       <h3>{{translation.panel_heading_add_option}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" >
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8" >
+                                <form name="addOptionForm" ng-submit="addOption()" novalidate>
+                                    <div class="row form-group" ng-class="{'has-error':((addOptionForm.name.$error.minlength && submitted)||(addOptionForm.name.$error.required && submitted))}">
+                                        <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                        <div  class="col-lg-10"><input name="name" class="form-control" ng-model="name" ng-minlength="3" required>
+                                            <label class="control-label" ng-show="(addOptionForm.name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                            <label class="control-label" ng-show="(addOptionForm.name.$error.required && submitted)">{{translation.err_required}}</label>
+                                        </div>
+                                    </div>
+                                    <div class='row form-group'>
+                                        <div  class="col-lg-4">{{translation.label_list_value}}</div>
+                                        <div  class="col-lg-8">
+                                            <ul class="list-group" ui-sortable="valuesSortable" ng-model="listValues">
+                                                <li ng-repeat ="x in listValues" >
+                                                    <label class="todoCheckboxlabel" >{{x}}</label>
+                                                    <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteValue($index)">×</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>      
+                                    <div class="row form-group" >
+                                        <div class="col-lg-2"> </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" ng-model="val">
+                                        </div>
+                                        <div  class="col-lg-2">
+                                            <input type="button" ng-click="addOptionList()" class="btn btn-default pull-right" value="Ajouter" />
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div  class="col-lg-2"><label>{{translation.label_multi}}</label></div>
+                                        <div  class="col-lg-10">
+                                            <div class="switch">
+                                                <input required id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" ng-model="data" ng-click="changestate()">
+                                                <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    <div ng-show="data" class="row form-group">
+                                        <div  class="col-lg-2"><label>{{translation.label_max}}</label></div>
+                                            <div  class="col-lg-10"><input required type="number" name="nbMax" class="form-control" ng-model="number_max">
+                                                <label class="control-label" ng-show="addOptionForm.nbMax.$error.number">{{translation.err_number}}</label>
+                                            </div>
+                                    </div>
+                                    <div ng-show="data" class="row form-group">
+                                        <div  class="col-lg-2"><label>{{translation.label_min}}</label></div>
+                                        <div  class="col-lg-10"><input required type="number" name="nbMin" class="form-control" ng-model="number_min">
+                                            <label class="control-label" ng-show="addOptionForm.nbMin.$error.number">{{translation.err_number}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>                                              
+            </div>
+        </div>
+    </div>
+</div>

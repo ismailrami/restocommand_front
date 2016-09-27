@@ -1,0 +1,124 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'partials/navBar.html'"></div>   
+    <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedProd =true] [selected=true]"></div>   
+    <div id="page-wrapper" >
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">
+                    {{translation.page_header_add_product}}
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{translation.panel_heading_add_product}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8" >
+                        <form name="addProductForm" ng-submit="addProduct()" enctype="multipart/form-data" novalidate>                                                    
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.name.$error.minlength && submitted)||(addProductForm.name.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                <div  class="col-lg-10"><input class="form-control" name="name" ng-minlength="3" required ng-model="product.name">
+                                    <label class="control-label" ng-show="(addProductForm.name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                    <label class="control-label" ng-show="(addProductForm.name.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.shortName.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_short_name}}</label></div>
+                                <div  class="col-lg-10"><input required class="form-control" name="shortName" ng-model="product.short_name">
+                                    <label class="control-label" ng-show="(addProductForm.shortName.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.desc.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_description}}</label></div>
+                                <div  class="col-lg-10"><input required class="form-control" name="desc" ng-model="product.description">
+                                    <label class="control-label" ng-show="(addProductForm.desc.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.category.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_category}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" ng-model="product.category" ngModel="string" name="category"  ngRequired="string" ngOptions="comprehension_expression">
+                                        <option ng-repeat="x in categoryTab" value="{{x.id}}">{{x.name}}</option>
+                                    </select>
+                                     <label class="control-label" ng-show="(addProductForm.category.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.color.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_color}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" required ng-model="product.color" ngModel="string" name="color"  ngRequired="string" ngOptions="comprehension_expression">
+                                        <option ng-repeat="c in color" value="{{c}}">{{c}}</option>
+                                    </select>
+                                    <label class="control-label" ng-show="(addProductForm.color.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.price.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_price_ht}}</label></div>
+                                <div  class="col-lg-3"><input required type="number" class="form-control" ng-change="changePrice()" name="price" ng-model="product.price">
+                                     <label class="control-label" ng-show="(addProductForm.price.$error.required &&  submitted) || (addProductForm.price.$error.required && addProductForm.price.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="addProductForm.price.$error.number">{{translation.err_number}}</label>
+                                </div>
+                                <div  class="col-lg-1"></div>
+                                <div  class="col-lg-2"><label>{{translation.label_price_ttc}}</label></div>
+                                <div  class="col-lg-3"><input required name="pricettc" ng-change="changeTtc()" ng-model="priceTTc" type="number" class="form-control">
+                                    <label class="control-label"  ng-show="(addProductForm.pricettc.$error.required &&  submitted) || (addProductForm.pricettc.$error.required && addProductForm.pricettc.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="addProductForm.pricettc.$error.number">{{translation.err_number}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.tva.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_tva}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select required class="form-control" ng-change="changeTva()" ng-model="product.tva" ngModel="string" name="tva" required ngRequired="string" ngOptions="comprehension_expression">
+                                       <option ng-repeat="x in tvaTab" value="{{x.id}}">{{x.name}} {{x.value}}</option>
+                                    </select>
+                                    <label class="control-label" ng-show="(addProductForm.tva.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((addProductForm.position.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_position}}</label></div>
+                                <div  class="col-lg-10"><input required type="number" name="position" class="form-control" ng-model="product.position">
+                                     <label class="control-label" ng-show="(addProductForm.position.$error.required &&  submitted) || (addProductForm.position.$error.required && addProductForm.position.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="addProductForm.position.$error.number">{{translation.err_number}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div  class="col-lg-2"><label>{{translation.label_display}}</label></div>
+                                <div  class="col-lg-10">
+                                    <div class="switch">
+                                        <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" ng-model="product.is_displayed" ng-click="changestate()">
+                                        <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <addbuttonsbutton></addbuttonsbutton>
+                            <div id="space-for-buttons"></div>
+                            <div class="row form-group">
+                                <div class="row" >
+                                    <div class="col-lg-3"  ng-repeat="image in files"  ng-model="files">
+                                        <img width='100px' height="100px" ng-src="{{image}}"/>
+                                        <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteValue($index)">×</button>
+                                    </div>
+                                    <div class="col-lg-3 upload">
+                                        <input type="file" accept="image/*" ng-file-select="onFileSelect($files)" >
+                                    </div>
+                                </div>
+
+
+                            </div> 
+                            <div class="form-group">
+                                <button class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>                                      
+    </div>
+</div>

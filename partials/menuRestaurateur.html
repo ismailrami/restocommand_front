@@ -1,0 +1,33 @@
+<nav class="navbar-default navbar-side" role="navigation" ng-init="menuInit">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+            <li>
+
+                <a ng-class="{ 'active-menu': selectedPlan }" href="#/plan"><i class="fa fa-dashboard"></i>{{translation.li_menu_plan}}</a>
+            </li>
+            <li >
+                <a ng-click="selected=!selected" href=""><i class="fa fa-dashboard" ></i> {{translation.li_menu_carte}}</a>
+                <ul class="nav nav-second-level collapse  " ng-class="{ 'collapse in': selected, 'collapse': !selected }">
+                    <li>
+                        <a ng-class="{ 'active-menu': selectedCat }" href="#/allCategorie">{{translation.li_menu_category}}</a>
+                    </li>
+                    <li>
+                        <a ng-class="{ 'active-menu': selectedProd }" href="#/allProducts">{{translation.li_menu_product}}</a>
+                    </li>
+                    <li>
+                        <a ng-class="{ 'active-menu': selectedOption }" href="#/allOptions">{{translation.li_menu_option}}</a>
+                    </li>
+                    <li>
+                        <a ng-class="{ 'active-menu': selectedMenu }" href="#/allMenus">{{translation.li_menu_menu}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a ng-class="{ 'active-menu': selectedUser }" href="#/allWorkers"><i class="fa fa-dashboard"></i> {{translation.li_menu_user}}</a>
+            </li>
+            <li>
+                <a ng-class="{ 'active-menu': selectedParam }" href="#/allTvas"><i class="fa fa-dashboard"></i> {{translation.li_menu_settings}}</a>
+            </li>
+        </ul>
+    </div>
+</nav>

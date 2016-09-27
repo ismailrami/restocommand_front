@@ -1,0 +1,19 @@
+ <div id="login-page" >
+      <div class="container log">
+        
+          <form class="form-login" ng-submit="login()">
+            <h2 class="form-login-heading">{{translation.form_login_heading}}</h2>
+            <div class="login-wrap">
+                <input type="text" class="form-control" placeholder="{{translation.label_email}}" autofocus ng-model="email" required>
+                <br>
+                <input type="password" class="form-control" placeholder="{{translation.label_pwd}}" ng-model="password" required>
+                <label class="checkbox">
+                    <span class="pull-right">
+                      <div class="alert" ng-show="flash" ng-bind="flash" ng-init='init()'></div>
+                    </span>
+                </label>
+                <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-lock"></i>{{translation.bt_connection}}</button>
+            </div>
+          </form>     
+      </div>
+</div>

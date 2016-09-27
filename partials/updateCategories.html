@@ -1,0 +1,77 @@
+<div id="wrapper" ng-init='load()'>
+        <div ng-include="'partials/navBar.html'"></div>
+         <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedCat =true] [selected=true]"></div>
+        <div id="page-wrapper" >
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                           {{translation.page_header_add_category}}
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3> {{translation.panel_heading_update_category}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            
+                            </div>
+                            <div class="col-lg-8" >
+                                <form ng-submit="updateCategorie()" name="updateCategoryForm" novalidate>
+                                            <div class="row form-group" ng-class="{'has-error':((updateCategoryForm.name.$error.minlength && submitted)||(updateCategoryForm.name.$error.required && submitted))}">
+                                                <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                                <div  class="col-lg-10"><input name="name" required class="form-control" ng-model="categori.name">
+                                                     <label class="control-label" ng-show="(updateCategoryForm.name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                                     <label class="control-label" ng-show="(updateCategoryForm.name.$error.required && submitted)">{{translation.err_required}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div  class="col-lg-2"><label>{{translation.label_color}}</label></div>
+                                                <div  class="col-lg-10">
+                                                    <select class="form-control" required ng-model="categori.color" name="color"
+                                                    >
+                                                        <option ng-repeat="c in color" value="{{c}}">{{c}}</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                            <div class="row form-group" ng-class="{'has-error':((updateCategoryForm.position.$error.required && submitted))}">
+                                                <div  class="col-lg-2"><label>{{translation.label_position}}</label></div>
+                                                <div  class="col-lg-10"><input name="position" required class="form-control" ng-model="categori.position"></div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div  class="col-lg-2"><label>{{translation.label_category_parent}}</label></div>
+                                                <div  class="col-lg-10"> 
+                                                    <select class="form-control" ng-model="categori.category_id" name="string" ng-options="x.id as x.name for x in rep">
+                                                      
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div  class="col-lg-2"><label>{{translation.label_visibilite}}</label></div>
+                                                <div  class="col-lg-10">
+                                                    <div class="switch">
+                                                        <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" ng-model="categori.is_displayed" ng-click="changestate()">
+                                                        <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+                                                    </div>                            
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</div>

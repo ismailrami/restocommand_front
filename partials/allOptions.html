@@ -1,0 +1,101 @@
+<div id="wrapper" ng-init='init()'>
+  <div ng-include="'partials/navBar.html'"></div>
+  <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedOption =true] [selected=true]"></div>     
+  <div id="page-wrapper" >
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="page-header">
+            {{translation.page_header_all_option}}
+          </h1>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-xs-4"></div>
+        <div class="row bar-search" >
+          <div class="col-md-12">
+            <div class="col-md-6 no-padding">
+              <p class="pull-left search">{{tableParams.sorting()|json}}
+              <input ng-model="searchparam" class="form-control input-sm" type="text" placeholder="Recherche" autofocus>
+            </p>
+            </div>
+            <div class="col-md-6 no-padding">
+              <button ng-click="" class="btn btn-default pull-right"><a href="#/addOptions">{{translation.bt_add_option}}</a></button>
+            </div>
+            
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-md-12">
+                    <table ng-table="tableParams" show-filter="true" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th ng-click="predicate = 'name'; reverse=!reverse">{{translation.label_name}}</th>
+                                <th ng-click="predicate = 'values'; reverse=!reverse">{{translation.label_value}}</th>
+                                <th ng-click="predicate = 'is_multiple'; reverse=!reverse">{{translation.label_select_multiple}}</th>
+                                <th class="action-col">{{translation.label_action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in Options | filter: searchparam | orderBy:predicate:reverse | pagination: curPage * pageSize | limitTo: pageSize">
+                              <td data-title="'name'" sortable="'name'" filter="{ 'name': 'text' }">
+                                {{x.name}}
+                              </td>  
+                              <td data-title="'values'" sortable="'values'" filter="{ 'values': 'text' }">
+                                {{x.values}}
+                              </td>
+                              <td data-title="'is_multiple'" sortable="'is_multiple'" filter="{ 'is_multiple': 'text' }">
+                                {{x.is_multiple}} 
+                              </td>
+                              <td>
+                                <button  class="btn btn-default"><a href="#/updateOption/{{x.id}}">{{translation.bt_update}}</a></button>
+                                <button ng-click="supprimer(x)" class="btn btn-default"><a href="">{{translation.bt_delete}}</a></button>
+
+                               
+                              </td>
+
+                            </tr>
+                             <modal-dialog show='modalShown' width='450px'>
+                                  <center><header><p><b>{{translation.label_worrnig}}</b></p></header></center>
+                                  {{translation.msg_delete}} <b>{{optionName}}</b>.
+                                  <br>
+                                  
+                                  <br><br>
+
+                                  <div class='btn btn-default pull-right' ng-click='yes()'>{{translation.label_yes}}</div>
+
+                             </modal-dialog>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div> 
+            <div class="row">
+              <div class="col-md-12">
+                    <div class="dataTables_paginate paging_simple_numbers" ng-show="Options.length">
+                        <ul class="pagination">
+            <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous" >
+              <a  href="">
+                <button class='paginationBtn' type="button" ng-disabled="curPage == 0" ng-click="curPage=curPage-1">  
+                 {{translation.bt_prev}}
+                </button>
+              </a>
+            </li>
+            <li >
+              <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+            </li>
+            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next" >
+              <a  href="">
+                <button class='paginationBtn' type="button" ng-disabled="curPage >= Options.length/pageSize - 1" ng-click="curPage = curPage+1">{{translation.bt_next}} 
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row" >            
+    </div>
+  </div>
+</div>
+</div>

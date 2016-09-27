@@ -1,0 +1,51 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'partials/navBar.html'"></div>
+    <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedParam =true]"></div>   
+    <div id="page-wrapper" >
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">
+                    {{translation.page_header_add_tva}}
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                       <h3>{{translation.panel_heading_add_tva}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-8" >
+                                <form ng-submit="addTva()" name="addTvaForm" novalidate>
+                                    <div class="row form-group" ng-class="{'has-error':((addTvaForm.name.$error.minlength && submitted)||(addTvaForm.name.$error.required && submitted))}">
+                                        <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                        <div  class="col-lg-10"><input required name="name" class="form-control" ng-model="tva.name" ng-minlength="3">
+                                            <label class="control-label" ng-show="(addTvaForm.name.$error.minlength && submitted)">
+                                            {{translation.err_min_3}}</label>
+                                            <label class="control-label" ng-show="(addTvaForm.name.$error.required && submitted)">
+                                            {{translation.err_required}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group" ng-class="{'has-error':((addTvaForm.value.$error.required && submitted))}">
+                                        <div  class="col-lg-2"><label>{{translation.label_value}}</label></div>
+                                        <div  class="col-lg-10"><input required name="value" type="number" class="form-control" ng-model="tva.value">
+                                            <label class="control-label" ng-show="(addTvaForm.value.$error.required &&  submitted) || (addTvaForm.value.$error.required && addTvaForm.value.$dirty)">{{translation.err_required}}</label>
+                                            <label class="control-label" ng-show="addTvaForm.value.$error.number">{{translation.err_number}}</label>
+                                        </div>
+                                    </div>                                
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

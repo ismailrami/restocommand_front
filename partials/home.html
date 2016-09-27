@@ -1,0 +1,113 @@
+<div id="wrapper" ng-init='init()'>
+        <div ng-include="'partials/navBar.html'"></div>
+        <!--/. NAV TOP  -->
+        <div ng-include="'partials/menuSuper.html'"></div>
+        
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            {{translation.page_header_all_restorer}}
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="row" >
+                  
+                </div>
+                <div class="row bar-search" >
+                  <div class="col-md-12">
+                    <div class="col-md-6 no-padding">
+                      <p class="pull-left search">{{tableParams.sorting()|json}}
+                      <input ng-model="searchparam" class="form-control input-sm" type="text" placeholder="Recherche" autofocus></p>
+                    </div>
+                    <div class="col-md-6 no-padding">
+                      <button ng-click="" class="btn btn-default pull-right"><a href="#/addrestorer">{{translation.bt_add_restorer}}</a></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-12">
+                    <table ng-table="tableParams" show-filter="true" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th ng-click="predicate = 'last_name'; reverse=!reverse">{{translation.label_name}}</th>
+                                <th ng-click="predicate = 'name_restaurant'; reverse=!reverse">{{translation.label_name_restaurant}}</th>
+                                <th ng-click="predicate = 'login'; reverse=!reverse">{{translation.label_login}}</th>
+                                <th ng-click="predicate = 'created_at'; reverse=!reverse">{{translation.label_create}}</th>
+                                <th ng-click="predicate = 'last_connexion'; reverse=!reverse">{{translation.label_last_connection}}</th>
+                                <th class="action-col">{{translation.label_action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in restorers | filter: searchparam | orderBy:predicate:reverse | pagination: curPage * pageSize | limitTo: pageSize">
+                              <td data-title="'last_name'" sortable="'last_name'" filter="{ 'last_name': 'text' }">
+                                {{x.last_name}} {{x.first_name}}
+                              </td>  
+                              <td data-title="'name_restaurant'" sortable="'name_restaurant'" filter="{ 'name_restaurant': 'text' }">
+                                {{x.name_restaurant}}
+                              </td>
+                              <td data-title="'login'" sortable="'login'" filter="{ 'login': 'text' }">
+                                {{x.login}}
+                              </td>
+                              <td data-title="'created_at'" sortable="'created_at'" filter="{ 'created_at': 'text' }">
+                                {{x.created_at.date}}
+                              </td>
+                              <td data-title="'last_connexion'" sortable="'last_connexion'" filter="{ 'last_connexion': 'text' }">
+                                {{x.last_connexion.date}}
+                              </td>
+                              <td>
+                                <button  class="btn btn-default"><a href="#/updaterestorer/{{x.id}}">{{translation.bt_update}}</a></button>
+                                <button ng-click="supprimer(x)" class="btn btn-default"><a href="">{{translation.bt_delete}}</a></button>
+
+                                <modal-dialog show='modalShown' width='440px'>
+                                  <div class="row"><center><b>{{translation.label_worrnig}}</b></center></div>
+                                  <div class="row"></div>
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      {{translation.msg_delete}}<b>{{restaurant.name}}</b>.
+                                    </div>
+                                  </div>
+                                  <div class="row"></div>
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      <div class='btn btn-default pull-right' ng-click="yes(x)">{{translation.label_yes}}</div>
+                                    </div>
+                                  </div>
+                                <div class="row"></div>
+                             </modal-dialog>
+                              </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="col-md-12">
+                    <div class="dataTables_paginate paging_simple_numbers" ng-show="restorers.length">
+                        <ul class="pagination">
+                            <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous" >
+                                <a  href="">
+                                    <button class='paginationBtn' type="button" ng-disabled="curPage == 0" ng-click="curPage=curPage-1">  
+                                            {{translation.bt_prev}}
+                                    </button>
+                                </a>
+                            </li>
+                             <li >
+                               <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                            </li>
+                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next" >
+                                <a  href="">
+                                    <button class='paginationBtn' type="button" ng-disabled="curPage >= restorers.length/pageSize - 1" ng-click="curPage = curPage+1">{{translation.bt_next}}
+                                        </button>
+                                </a>
+                            </li>
+                        </ul>
+                      </div>
+                    </div>
+                </div> 
+              </div>
+            
+      </div>

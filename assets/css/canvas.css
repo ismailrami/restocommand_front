@@ -1,0 +1,29 @@
+.container-canvas {
+        /* This could be done in one single declaration. See the extended sample. */
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+
+.btn-zoom-in
+{
+	width:30px;
+	height: 30px;
+	position: absolute;
+    top: 20px;
+    right:20px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+} 
+.btn-zoom-out
+{
+	position: absolute;
+	width:30px;
+	height: 30px;
+	top: 52px;
+	right:20px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}   

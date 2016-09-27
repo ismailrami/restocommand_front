@@ -1,0 +1,114 @@
+<div id="wrapper" ng-init='init()'>
+        <div ng-include="'partials/navBar.html'"></div>
+        <!--/. NAV TOP  -->
+       <div ng-include="'partials/menuSuper.html'"></div>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            {{translation.page_header_add_restorer}}
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                <div class=" col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                       <h3> {{translation.panel_heading_update_restorer}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                        <div class="col-lg-2">
+                            
+                        </div>
+                        <div class="col-lg-8">
+                            <form ng-submit="update()" name="updateRestorerForm" novalidate>
+                                <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.last_name.$error.minlength && submitted)||(updateRestorerForm.last_name.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                    <div  class="col-lg-10">
+                                        <input class="form-control" ng-minlength="2" name='last_name' ng-model="restorer.last_name" required>
+                                        <label class="control-label" ng-show="(updateRestorerForm.last_name.$error.minlength && submitted)">{{translation.err_min_2}}</label>
+                                        <label class="control-label" ng-show="(updateRestorerForm.last_name.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.first_name.$error.minlength && submitted)||(updateRestorerForm.first_name.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_last_name}}</label></div>
+                                    <div  class="col-lg-10"><input name="first_name" ng-minlength="2" class="form-control" ng-model="restorer.first_name" required>
+                                        <label class="control-label" ng-show="(updateRestorerForm.first_name.$error.minlength && submitted)">{{translation.err_min_2}}</label>
+                                        <label class="control-label" ng-show="(updateRestorerForm.first_name.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.name_Rest.$error.minlength && submitted)||(updateRestorerForm.name_Rest.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_name_restaurant}}</label></div>
+                                    <div  class="col-lg-10"><input ng-minlength="3" name="name_Rest" class="form-control" ng-model="restorer.name_restaurant" required>
+                                        <label class="control-label" ng-show="(updateRestorerForm.name_Rest.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                        <label class="control-label" ng-show="(updateRestorerForm.name_Rest.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.email.$error.email && submitted)||(updateRestorerForm.email.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_email}}</label></div>
+                                    <div  class="col-lg-10">
+                                        <input type='email' name='email' class="form-control" ng-model="restorer.email" required>
+                                        <label class="control-label" ng-show="(updateRestorerForm.email.$error.email && submitted)">{{translation.err_email}}</label>
+                                        <label class="control-label" ng-show="(updateRestorerForm.email.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.email.$error.required && submitted))}">
+                                    <div  class="col-lg-2"><label>{{translation.label_login}}</label></div>
+                                    <div  class="col-lg-10"><input name="login" class="form-control" ng-model="restorer.login" required>
+                                        <label class="control-label" ng-show="(updateRestorerForm.login.$error.required && submitted)">{{translation.err_required}}</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-lg-6">
+                                        <div class="row form-group" ng-class="{'has-error':((updateRestorerForm.mdp.$error.minlength && submitted)||(updateRestorerForm.mdp.$error.required && submitted))}">
+                                            <div  class="col-lg-4 div-password"><label>{{translation.label_pwd}}</label></div>
+                                            <div  class="col-lg-8 input-password"><input ng-minlength="8" ng-disabled="restorer.generateMdp" name="mdp" type="password" class="form-control" ng-model="restorer.password">
+                                                <label class="control-label" ng-show="(updateRestorerForm.mdp.$error.minlength && submitted)">{{translation.err_min_8}}</label>
+                                                <label class="control-label" ng-show="(updateRestorerForm.last_name.$error.required && submitted)">{{translation.err_required}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group" ng-class="{'has-error':((updateRestorer.confirmPassword.$error.match ))}"> 
+                                            <div  class="col-lg-4 div-password"><label>{{translation.label_cpwd}}</label></div>
+                                            <div  class="col-lg-8 input-password">
+                                                <input  ng-disabled="restorer.generateMdp" name="confirmPassword" type="password" class="form-control"  ng-model="restorer.passwordComfirmed" ng-match="restorer.password">
+                                                <label class="control-label" ng-show="updateRestorer.confirmPassword.$error.match">{{translation.err_identique}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkbox" style="padding-top: 20px;">
+                                            <label class="label-or">{{translation.label_or}}</label>
+                                            <label><input type="checkbox" ng-model="restorer.generateMdp"  value="">{{translation.label_generate_pwd}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div  class="col-lg-7">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" ng-model="restorer.send" ng-checked="restorer.generateMdp" value="">{{translation.label_send_mail}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div  class="col-lg-7">
+                                        <div class="alert"  ng-show="flash" ng-bind="flash" ng-init='init()'></div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <button type="submit"  class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>    
+        </div>     
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'partials/navBar.html'"></div>   
+    <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedCat =true] [selected=true]"></div>   
+    <div id="page-wrapper" >
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">
+                     {{translation.page_header_add_category}}
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{translation.panel_heading_add_category}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8" >
+                        <form name="addCategorieForm" ng-submit="addCategorie()" novalidate>
+                            <div class="row form-group" ng-class="{'has-error':((addCategorieForm.name.$error.minlength && submitted)||(addCategorieForm.name.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                <div  class="col-lg-10">
+                                    <input type="text" name="name" class="form-control" ng-model="cat.name" ng-minlength="3" required>
+                                    <label class="control-label" ng-show="(addCategorieForm.name.$error.minlength && submitted)">
+                                    {{translation.err_min_3}}</label>
+                                    <label class="control-label" ng-show="(addCategorieForm.name.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{ 'has-error':(addCategorieForm.color.$error.required && submitted)||(addCategorieForm.color.$error.required && addCategorieForm.color.$dirty)}">
+                                <div  class="col-lg-2"><label>{{translation.label_color}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" required ng-model="cat.color" ngModel="string" name="color"  ngRequired="string" ngOptions="comprehension_expression">
+                                        <option ng-repeat="c in color" value="{{c}}">{{c}}</option>
+                                    </select>
+                                    <label class="control-label" ng-show="(addCategorieForm.color.$error.required && submitted)||(addCategorieForm.color.$error.required && addCategorieForm.color.$dirty)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div  class="col-lg-2"><label>{{translation.label_category_parent}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" ng-model="cat.category_id" ngModel="string" name="string" ngRequired="string" ngOptions="comprehension_expression">
+                                        <option ng-repeat="x in tabTri" value="{{x.id}}">{{x.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{ 'has-error':(addCategorieForm.position.$error.required && submitted) || (addCategorieForm.position.$error.required && addCategorieForm.position.$dirty) }">
+                                <div  class="col-lg-2"><label>{{translation.label_position}}</label></div>
+                                <div  class="col-lg-10">
+                                    <input type="number" name="position" class="form-control" ng-model="cat.position" required>
+                                    <label class="control-label" ng-show="(addCategorieForm.position.$error.required &&  submitted) || (addCategorieForm.position.$error.required && addCategorieForm.position.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="addCategorieForm.position.$error.number">{{translation.err_number}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div  class="col-lg-2"><label>{{translation.label_visibilite}}</label></div>
+                                <div  class="col-lg-10">
+                                    <div class="switch">
+                                        <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" ng-model="cat.is_displayed" ng-click="changestate()">
+                                        <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+                                    </div>                            
+                                </div>                
+                            </div>            
+                            <div class="form-group">
+                                <button type="submit"  class="btn btn-default pull-right">{{translation.bt_valid}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>  
+    </div>
+</div>

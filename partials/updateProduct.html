@@ -1,0 +1,145 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'partials/navBar.html'"></div>   
+    <div ng-include="'partials/menuRestaurateur.html'" ng-init="[selectedProd =true] [selected=true]"></div>   
+    <div id="page-wrapper" >
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">
+                    {{translation.page_header_add_product}}
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3> {{translation.panel_heading_update_product}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8" >
+                        <form ng-submit="update()" name="updateProductForm" enctype="multipart/form-data" novalidate>                                                    
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.name.$error.minlength && submitted)||(updateProductForm.name.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_name}}</label></div>
+                                <div  class="col-lg-10"><input class="form-control" name="name" required ng-model="updateProduct.name">
+                                    <label class="control-label" ng-show="(updateProductForm.name.$error.minlength && submitted)">{{translation.err_min_3}}</label>
+                                    <label class="control-label" ng-show="(updateProductForm.name.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.shortName.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_short_name}}</label></div>
+                                <div  class="col-lg-10"><input class="form-control" required ng-model="updateProduct.short_name">
+                                    <label class="control-label" ng-show="(updateProductForm.shortName.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.desc.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_description}}</label></div>
+                                <div  class="col-lg-10"><input class="form-control" required ng-model="updateProduct.description">
+                                    <label class="control-label" ng-show="(updateProductForm.desc.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.category.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_category}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" ng-model="updateProduct.category" name="string" ng-options="x.id as x.name for x in categoryTab">
+                                    </select>
+                                    <label class="control-label" ng-show="(updateProductForm.category.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.color.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_color}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" required ng-model="updateProduct.color" ngModel="string" name="string"  ngRequired="string" ngOptions="comprehension_expression">
+                                        <option ng-repeat="c in color" value="{{c}}">{{c}}</option>
+                                    </select>
+                                    <label class="control-label" ng-show="(updateProductForm.color.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.price.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_price_ht}}</label></div>
+                                <div  class="col-lg-3"><input class="form-control" required type="number" ng-model="updateProduct.price">
+                                    <label class="control-label" ng-show="(updateProductForm.price.$error.required &&  submitted) || (updateProductForm.price.$error.required && updateProductForm.price.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="updateProductForm.price.$error.number">{{translation.err_number}}</label>
+                                </div>
+                                <div  class="col-lg-1"></div>
+                                <div  class="col-lg-2"><label>{{translation.label_price_ttc}}</label></div>
+                                <div  class="col-lg-3"><input required type="number" class="form-control">
+                                    <label class="control-label"  ng-show="(updateProductForm.pricettc.$error.required &&  submitted) || (updateProductForm.pricettc.$error.required && updateProductForm.pricettc.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="updateProductForm.pricettc.$error.number">{{translation.err_number}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.tva.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_tva}}</label></div>
+                                <div  class="col-lg-10">
+                                    <select class="form-control" ng-model="updateProduct.tva" name="string" ng-options="x.id as x.name for x in tvaTab">
+                                    </select>
+
+                                   
+                                    <label class="control-label" ng-show="(updateProductForm.tva.$error.required && submitted)">{{translation.err_required}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group" ng-class="{'has-error':((updateProductForm.position.$error.required && submitted))}">
+                                <div  class="col-lg-2"><label>{{translation.label_position}}</label></div>
+                                <div  class="col-lg-10"><input class="form-control" required type="number" ng-model="updateProduct.position">
+                                    <label class="control-label" ng-show="(updateProductForm.position.$error.required &&  submitted) || (updateProductForm.position.$error.required && updateProductForm.position.$dirty)">{{translation.err_required}}</label>
+                                    <label class="control-label" ng-show="updateProductForm.position.$error.number">{{translation.err_number}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div  class="col-lg-2"><label>{{translation.label_display}}</label></div>
+                                <div  class="col-lg-10">
+                                    <div class="switch">
+                                        <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" ng-model="updateProduct.is_displayed" ng-click="changestate()">
+                                        <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div ng-repeat="op in updateProduct.options">
+                                <div class="row form-group" >
+                                    <div  class="col-lg-2">
+                                        <label>{{translation.label_option}}</label>
+                                    </div>
+                                    <div  class="col-lg-10"> 
+                                        <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteOption($index,op.id)">×</button>
+                                        <select class="form-control" ng-model="op.id" name="string" ng-options="x.id as x.name for x in optionTab">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <addbuttonsbutton></addbuttonsbutton>
+                            <div id="space-for-buttons"></div>
+                            <div class="row form-group">
+
+
+
+
+
+                                <div class="row" >
+                                    <div class="col-lg-3"  ng-repeat="image in pictures"  ng-model="files">
+                                        <img width='100px' height="100px" ng-src="http://localhost/restocommand-api2/public/{{image.url}}"/>
+                                        <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteIndex($index,image.id)">×</button>
+                                    </div>
+                                    <div class="col-lg-3"  ng-repeat="image in files"  ng-model="files">
+                                        <img width='100px' height="100px" ng-src="{{image}}"/>
+                                        <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteValue($index)">×</button>
+                                    </div>
+                                    <div class="col-lg-3 upload">
+                                        <input type="file" accept="image/*" ng-file-select="onFileSelect($files)" >
+                                    </div>
+                                </div>
+
+
+                            </div> 
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-default pull-right" value="valider" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>                                      
+    </div>
+</div>
